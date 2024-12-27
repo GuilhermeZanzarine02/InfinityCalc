@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/blackscholes.css">
+    <title>Calculadora Black-Scholes</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora<br>Black-Scholes</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="S0">Preço Atual do Ativo (S):</label>
+                <input type="number" name="S0" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="X">Preço de Exercício (X):</label>
+                <input type="number" name="X" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="r">Taxa Livre de Risco (r):</label>
+                <input type="number" name="r" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="T">Tempo até a Expiração (T):</label>
+                <input type="number" name="T" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="sigma">Volatilidade (σ):</label>
+                <input type="number" name="sigma" step="any" required>
+            </div>
+            <button type="submit">Calcular Preço da Opção</button>
+        </form>
+    </div>
+
+    {% if call is not none and put is not none %}
+    <div class="resultados">
+        <div class="resultado-item">
+            <h2>Preço da Opção Call:</h2>
+            <p>{{ call }} $</p>
+        </div>
+        <div class="resultado-item">
+            <h2>Preço da Opção Put:</h2>
+            <p>{{ put }} $</p>
+        </div>
+    </div>
+    {% endif %}
+    
+</body>
+</html>

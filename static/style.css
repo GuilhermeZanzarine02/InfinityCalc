@@ -21,6 +21,41 @@ body {
     background-color: #7b5555;
 }
 
+.left {
+    background-color: #7289DA;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Espaço entre os botões */
+}
+
+.left a {
+    text-decoration: none;
+}
+
+.left button {
+    background-color: #00D1FF;
+    color: #1B2735;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family: 'Kanit', sans-serif;
+    width: 200px;
+    text-align: center;
+}
+
+.left button:hover {
+    background-color: #00A3CC;
+    transform: scale(1.05);
+}
+
+
 .top-right {
     background-color: #b19696;
 }
