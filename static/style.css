@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 95%;
+    height: 95vh;
+}
+
+.left {
+    grid-row: 1 / 3;
+    background-color: #7b5555;
+}
+
+.top-right {
+    background-color: #b19696;
+}
+
+.bottom-right {
+    background-color: #6e3b3b;
+}
