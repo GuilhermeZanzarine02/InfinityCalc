@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
+from templates.exchangeRate.exchangerate import get_exchange_rate
 
 app = Flask(__name__)
 
@@ -50,6 +51,24 @@ def black_scholes_page():
         
     return render_template('BlackScholesPage/blackscholes.htm')
 
+
+# Rota para exibir os dados de câmbio
+@app.route('/exchangeRate/<moeda>', methods=['GET'])
+
+def exchange_rate(moeda):
+    api_data = get_exchange_rate(moeda)
+    
+    if api_data:
+        # As moedas são retornadas no formato "XXXYYY" (e.g., USD-BRL = USDBRL)
+        key = moeda.replace('-', '')
+        if key in api_data:
+            return render_template('exchangeRatePage.html', data=api_data[key])
+        else:
+            flash("Moeda não encontrada na API.", "error")
+    else:
+        flash("Erro ao carregar dados da API.", "error")
+    
+    return render_template('exchangeRatePage.html', data=None)   
 
 if __name__ == '__main__':
     app.run(debug=True)
