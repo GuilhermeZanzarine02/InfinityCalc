@@ -8,13 +8,27 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 
 def index():
-    if request.method == 'POST':
-        
-        flash('Formulário enviado com sucesso!')
-        return render_template('Homepage/index.html') 
+     #Busca dados de câmbio para USD-BRL
+     exchange_data = get_exchange_rate("USD-BRL")
+     exchange_rate = None
 
-    return render_template('Homepage/index.html')  
+     if exchange_data:
+          key = "USDBRL" 
+          if key in exchange_data:
+               exchange_rate = exchange_data[key]
 
+     exchange_data_eur_brl = get_exchange_rate("EUR-BRL")
+     exchange_rate_eur_brl  =  None
+
+     if exchange_data_eur_brl:
+          key = "EURBRL"
+          if key in exchange_data_eur_brl:
+               exchange_rate_eur_brl = exchange_data_eur_brl[key]
+
+     return render_template('Homepage/index.html',
+                             exchange_rate=exchange_rate,
+                             exchange_rate_eur_brl = exchange_rate_eur_brl)
+     
 
 # Rota para a página de juros simples (exemplo)
 @app.route('/simpleInterestPage', methods=['GET', 'POST'])
@@ -53,22 +67,10 @@ def black_scholes_page():
 
 
 # Rota para exibir os dados de câmbio
-@app.route('/exchangeRate/<moeda>', methods=['GET'])
+@app.route('/exchangeRate', methods=['GET'])
 
 def exchange_rate(moeda):
-    api_data = get_exchange_rate(moeda)
-    
-    if api_data:
-        # As moedas são retornadas no formato "XXXYYY" (e.g., USD-BRL = USDBRL)
-        key = moeda.replace('-', '')
-        if key in api_data:
-            return render_template('exchangeRatePage.html', data=api_data[key])
-        else:
-            flash("Moeda não encontrada na API.", "error")
-    else:
-        flash("Erro ao carregar dados da API.", "error")
-    
-    return render_template('exchangeRatePage.html', data=None)   
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)

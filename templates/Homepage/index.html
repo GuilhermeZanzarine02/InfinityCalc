@@ -34,7 +34,30 @@
             </a>
 
         </div>
-        <div class="top-right"></div>
+        <div class="top-right">
+            <h3>Taxa de Câmbio (USD/BRL)</h3>
+            {% if exchange_rate %}
+                <p><strong>Moeda:</strong> {{ exchange_rate.name }}</p>
+                <p><strong>Taxa Atual:</strong> {{ exchange_rate.bid }}</p>
+                <p><strong>Alta do Dia:</strong> {{ exchange_rate.high }}</p>
+                <p><strong>Baixa do Dia:</strong> {{ exchange_rate.low }}</p>
+                <p><strong>Última Atualização:</strong> {{ exchange_rate.create_date }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Taxa de câmbio (EUR/BRL)</h3>
+            {% if exchange_rate_eur_brl %}
+                <p><strong>Moeda:</strong> {{ exchange_rate_eur_brl.name }}</p>
+                <p><strong>Taxa Atual:</strong> {{ exchange_rate_eur_brl.bid }}</p>
+                <p><strong>Alta do Dia:</strong> {{ exchange_rate_eur_brl.high }}</p>
+                <p><strong>Baixa do Dia:</strong> {{ exchange_rate_eur_brl.low }}</p>
+                <p><strong>Última Atualização:</strong> {{ exchange_rate_eur_brl.create_date }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+        </div>
         <div class="bottom-right"></div>
     </div>
 </body>
