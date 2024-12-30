@@ -1,6 +1,8 @@
+import random
 from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
+from templates.Homepage.news import get_news
 
 app = Flask(__name__)
 
@@ -8,35 +10,48 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 
 def index():
-     #Busca dados de câmbio para USD-BRL
-     exchange_data = get_exchange_rate("USD-BRL")
-     exchange_rate = None
+    # Busca dados de câmbio
+    exchange_data = get_exchange_rate("USD-BRL")
+    exchange_rate = exchange_data.get("USDBRL") if exchange_data else None
 
-     if exchange_data:
-          key = "USDBRL" 
-          if key in exchange_data:
-               exchange_rate = exchange_data[key]
+    exchange_data_eur_brl = get_exchange_rate("EUR-BRL")
+    exchange_rate_eur_brl = exchange_data_eur_brl.get("EURBRL") if exchange_data_eur_brl else None
 
-     exchange_data_eur_brl = get_exchange_rate("EUR-BRL")
-     exchange_rate_eur_brl  =  None
+    exchange_data_gbp_brl = get_exchange_rate("GBP-BRL")
+    exchange_rate_gbp_brl = exchange_data_gbp_brl.get("GBPBRL") if exchange_data_gbp_brl else None
 
-     if exchange_data_eur_brl:
-          key = "EURBRL"
-          if key in exchange_data_eur_brl:
-               exchange_rate_eur_brl = exchange_data_eur_brl[key]
+    exchange_data_cny_brl = get_exchange_rate("CNY-BRL")
+    exchange_rate_cny_brl = exchange_data_cny_brl.get("CNYBRL") if exchange_data_cny_brl else None
 
-     return render_template('Homepage/index.html',
-                             exchange_rate=exchange_rate,
-                             exchange_rate_eur_brl = exchange_rate_eur_brl)
-     
+    exchange_data_aud_brl = get_exchange_rate("AUD-BRL")
+    exchange_rate_aud_brl = exchange_data_aud_brl.get("AUDBRL") if exchange_data_aud_brl else None
 
-# Rota para a página de juros simples (exemplo)
+    # Busca dados de notícias
+    data = get_news()
+    random_article = None
+
+    if data:
+        articles = data.get("articles", [])
+        if articles:
+            random_article = random.choice(articles)
+
+    return render_template(
+        'Homepage/index.html',
+        exchange_rate=exchange_rate,
+        exchange_rate_eur_brl=exchange_rate_eur_brl,
+        exchange_rate_gbp_brl=exchange_rate_gbp_brl,
+        exchange_rate_cny_brl=exchange_rate_cny_brl,
+        exchange_rate_aud_brl=exchange_rate_aud_brl,
+        random_article=random_article
+    )
+
+# Rota para a página de juros simples
 @app.route('/simpleInterestPage', methods=['GET', 'POST'])
 
 def simple_interest_page():
     return render_template('simpleInterestPage/simpleInterest.html') 
 
-
+#Rota para a página Black Scholes
 @app.route('/BlackScholesPage', methods=['GET', 'POST'])
 
 def black_scholes_page():

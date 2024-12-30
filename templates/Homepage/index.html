@@ -57,8 +57,50 @@
                 <p>Não foi possível carregar os dados de câmbio.</p>
             {% endif %}
 
+            <h3>Taxa de câmbio (GBP/BRL)</h3>
+            {% if exchange_rate_eur_brl %}
+                <p><strong>Moeda:</strong> {{ exchange_rate_gbp_brl.name }}</p>
+                <p><strong>Taxa Atual:</strong> {{ exchange_rate_gbp_brl.bid }}</p>
+                <p><strong>Alta do Dia:</strong> {{ exchange_rate_gbp_brl.high }}</p>
+                <p><strong>Baixa do Dia:</strong> {{ exchange_rate_gbp_brl.low }}</p>
+                <p><strong>Última Atualização:</strong> {{ exchange_rate_gbp_brl.create_date }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Taxa de câmbio (CNY/BRL)</h3>
+            {% if exchange_rate_eur_brl %}
+                <p><strong>Moeda:</strong> {{ exchange_rate_cny_brl.name }}</p>
+                <p><strong>Taxa Atual:</strong> {{ exchange_rate_cny_brl.bid }}</p>
+                <p><strong>Alta do Dia:</strong> {{ exchange_rate_cny_brl.high }}</p>
+                <p><strong>Baixa do Dia:</strong> {{ exchange_rate_cny_brl.low }}</p>
+                <p><strong>Última Atualização:</strong> {{ exchange_rate_cny_brl.create_date }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Taxa de câmbio (AUD/BRL)</h3>
+            {% if exchange_rate_eur_brl %}
+                <p><strong>Moeda:</strong> {{ exchange_rate_aud_brl.name }}</p>
+                <p><strong>Taxa Atual:</strong> {{ exchange_rate_aud_brl.bid }}</p>
+                <p><strong>Alta do Dia:</strong> {{ exchange_rate_aud_brl.high }}</p>
+                <p><strong>Baixa do Dia:</strong> {{ exchange_rate_aud_brl.low }}</p>
+                <p><strong>Última Atualização:</strong> {{ exchange_rate_aud_brl.create_date }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
         </div>
-        <div class="bottom-right"></div>
+        <div class="bottom-right">
+            <h3>Notícias</h3>
+            {% if random_article %}
+                <h4>{{ random_article.title }}</h4>
+                <p>{{ random_article.description }}</p>
+                <a href="{{ random_article.url }}" target="_blank">Leia mais</a>
+            {% else %}
+                <p>Não foi possível carregar uma notícia no momento.</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

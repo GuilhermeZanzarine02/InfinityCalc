@@ -86,12 +86,6 @@ p {
     outline-offset: 3px;
 }
 
-.bottom-right {
-    background: linear-gradient(135deg, #1B2735, #394A6D);
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-}
-
 .top-right {
     background: linear-gradient(135deg, #1B2735, #394A6D);
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
@@ -122,3 +116,65 @@ p {
     background: rgba(255, 255, 255, 1); /* Aumenta a opacidade quando hover */
 }
 
+.top-right h3{
+    font-size: 25px;
+    font-family: 'Oswald', sans-serif;
+    color: #B8C7CE; 
+}
+
+.bottom-right {
+    background: linear-gradient(135deg, #1B2735, #394A6D);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    height: 270px; 
+    overflow-y: auto; 
+    border: 1px solid #ccc; 
+    padding: 10px;
+}
+
+.bottom-right::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+.bottom-right::-webkit-scrollbar-track {
+    background: transparent; /* Fundo da trilha da barra de rolagem */
+    border-radius: 12px; /* Arredonda a trilha da barra de rolagem */
+}
+
+.bottom-right::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.7); /* Cor da "almofada" da barra */
+    border-radius: 12px; /* Arredonda a "almofada" da barra de rolagem */
+}
+
+/* Quando o mouse passa sobre a barra de rolagem */
+.bottom-right::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 1); /* Aumenta a opacidade quando hover */
+}
+
+.bottom-right h3{
+    font-size: 25px;
+    font-family: 'Oswald', sans-serif;
+    color: #B8C7CE; 
+}
+
+.bottom-right h4{
+    font-size: 16px;
+    font-family: "Kanit", serif;
+    color: #B8C7CE; 
+}
+
+.bottom-right a {
+    font-size: 14px; /* Tamanho da fonte */
+    font-family: "Kanit", serif; /* Mesma fonte do h4 */
+    color: #B8C7CE; /* Cor inicial do link */
+    text-decoration: none; /* Remove o sublinhado */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Adiciona uma borda sutil */
+    padding-bottom: 2px; /* Espaçamento para o efeito */
+    transition: color 0.3s ease, border-bottom-color 0.3s ease; /* Transição suave */
+}
+
+/* Hover para o link */
+.bottom-right a:hover {
+    color: #FFFFFF; /* Cor mais clara no hover */
+    border-bottom-color: rgba(255, 255, 255, 0.7); /* Destaca a borda no hover */
+}
