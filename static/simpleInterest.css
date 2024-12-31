@@ -136,3 +136,31 @@ button:hover {
     color: #B8C7CE;
     margin: 0;
 }
+
+.back-btn {
+    position: absolute;  
+    top: 20px;  
+    left: 20px;  
+}
+
+.btn {
+    color: #B8C7CE;
+    background-color: #1B2735;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    transform: translate(-50%, -50%);
+}
+
+.btn:hover {
+    background-color: #00A3CC;
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+

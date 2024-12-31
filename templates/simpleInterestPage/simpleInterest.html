@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/simpleInterest.css">
-    <title>Calculadora Black-Scholes</title>
+    <title>Calculadora Juros Simples</title>
 </head>
 <body>
     <div class="container">
@@ -27,18 +27,22 @@
             <button type="submit">Calcular</button>
         </form>
 
-        {% if call is not none and put is not none %}
+        {% if resultado is not none %}
         <div class="resultados">
             <div class="resultado-item">
                 <h2>Preço:</h2>
-                <p>{{ call }} $</p>
+                <p>{{ resultado }} R$</p>
             </div>
         </div>
        {% endif %}
+        <!-- Botão para voltar à página inicial -->
+        <div class="back-btn">
+            <a href="/" class="btn">Voltar</a>
+        </div>
       </div>
       <div class="right">
-        <h1>Grafico</h1>
-
+        <h1>Gráfico</h1>
+        <img src="{{ url_for('static', filename='ImagemGrafico.png') }}" alt="Gráfico de Juros Simples" width="500">
       </div>
     </div>
 </body>

@@ -1,8 +1,10 @@
 import random
+import os
 from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
 from templates.Homepage.news import get_news
+from simpleInterest.simpleInterest import SimpleInterest
 
 app = Flask(__name__)
 
@@ -52,8 +54,18 @@ def simple_interest_page():
     if request.method == "POST":
         try:
             pi = float(request.form['pi'])
-            tj = float(request.form['pi'])/100
-            t  = float(request.form['t'])/12
+            tj = float(request.form['tj'])
+            t  = float(request.form['t'])
+
+            simple_interest = SimpleInterest(pi, tj, t)
+            resultado = round(simple_interest.calculo(), 2)
+
+            GRAPH_PATH = 'ImagemGrafico.png'
+
+            simple_interest.gerarGrafico(graph_path=os.path.join('static', GRAPH_PATH))
+
+            return render_template('simpleInterestPage/simpleInterest.html', resultado=resultado,
+                                                                             graph_pah = GRAPH_PATH)
 
         except ValueError:
             flash("Erro: Por favor, insira apenas números válidos.", "error")
