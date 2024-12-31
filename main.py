@@ -49,6 +49,16 @@ def index():
 @app.route('/simpleInterestPage', methods=['GET', 'POST'])
 
 def simple_interest_page():
+    if request.method == "POST":
+        try:
+            pi = float(request.form['pi'])
+            tj = float(request.form['pi'])/100
+            t  = float(request.form['t'])/12
+
+        except ValueError:
+            flash("Erro: Por favor, insira apenas números válidos.", "error")
+            return render_template('simpleInterestPage/simpleInterest.html')
+        
     return render_template('simpleInterestPage/simpleInterest.html') 
 
 #Rota para a página Black Scholes

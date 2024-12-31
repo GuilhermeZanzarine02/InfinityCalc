@@ -3,7 +3,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1B2735, #394A6D);
+    background-color: #95a3be;
     text-align: center;
     padding: 50px;
     color: #A9BACD;
@@ -12,11 +12,11 @@ body {
 h1 {
     font-size: 50px;
     font-family: 'Oswald', sans-serif;
-    color: #00D1FF;
+    color: #B8C7CE; 
 }
 
 .container {
-    background-color: #2E4057;
+    background: linear-gradient(135deg, #1B2735, #394A6D);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
@@ -44,7 +44,7 @@ input {
     width: 200px;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #00D1FF;
+    border: 1px solid #B8C7CE; 
     background-color: #394A6D;
     color: #FFFFFF;
 }
@@ -56,7 +56,7 @@ input:focus {
 }
 
 button {
-    background-color: #00D1FF;
+    color: #B8C7CE; 
     color: #1B2735;
     padding: 10px 20px;
     border: none;
@@ -69,12 +69,12 @@ button {
 }
 
 button:hover {
-    background-color: #00A3CC;
+    color: #B8C7CE; 
     transform: scale(1.05);
 }
 
 h2 {
-    color: #7289DA;
+    color: #B8C7CE; 
 }
 
 .resultados {
@@ -85,7 +85,7 @@ h2 {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
     max-width: 515px;
     text-align: left;
-    color: #A9BACD;
+    color: #B8C7CE; 
     font-family: 'Kanit', sans-serif;
 }
 
@@ -99,7 +99,7 @@ h2 {
 .resultado-item h2 {
     font-size: 20px;
     font-family: 'Kanit', sans-serif;
-    color: #00D1FF;
+    color: #B8C7CE; 
     margin: 0;
 }
 

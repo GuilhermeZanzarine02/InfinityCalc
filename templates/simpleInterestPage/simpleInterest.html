@@ -3,10 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/static/simpleInterest.css">
+    <title>Calculadora Black-Scholes</title>
 </head>
 <body>
-    <h1>Teste page</h1>
-    
+    <div class="container">
+      <div class="left">
+        <h1>Calculadora<br>Juros Simples</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="pi">Preço Inicial:</label>
+                <input type="number" name="pi" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="tj">Taxa de Juros:</label>
+                <input type="number" name="tj" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="t">Período a.m:</label>
+                <input type="number" name="t" step="any" required>
+            </div>
+            
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if call is not none and put is not none %}
+        <div class="resultados">
+            <div class="resultado-item">
+                <h2>Preço:</h2>
+                <p>{{ call }} $</p>
+            </div>
+        </div>
+       {% endif %}
+      </div>
+      <div class="right">
+        <h1>Grafico</h1>
+
+      </div>
+    </div>
 </body>
 </html>
