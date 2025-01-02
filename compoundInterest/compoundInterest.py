@@ -1,39 +1,36 @@
 import matplotlib.pyplot as plt
+from simpleInterest.simpleInterest import SimpleInterest
 
-class SimpleInterest:
+class CompoundInterest(SimpleInterest):
     def __init__(self, pi, tj, t, unidade_tempo):
-        self.pi = pi
-        self.tj = tj / 100
-        self.t = t
-        self.unidade_tempo = unidade_tempo
+        super().__init__(pi, tj, t, unidade_tempo)
 
 
     def calculo(self):
-        if self.unidade_tempo == 'meses':
-            return self.pi * (1 + self.tj * self.t)
+        if self.unidade_tempo == "meses":
+            return self.pi* (1+ self.tj) ** self.t
         
         elif self.unidade_tempo == "anos":
             t_meses = self.t * 12
-            return self.pi * (1 + self.tj * t_meses)
+            return self.pi * (1 + self.tj) ** t_meses
         
         else:
             print("Erro! unidade de tempo invalida.")
-        
+       
 
-    def gerarGrafico(self, graph_path="static/ImagemGrafico.png"):
+    def gerarGrafico(self, graph_path="static/ImagemGrafico2.png"):
 
         periodos = list(range(1, int(self.t * 12) + 1))  
 
         valores = [self.pi * (1 + self.tj * (i / 12)) for i in periodos]  
-       
+
         plt.figure(figsize=(10, 6))
         plt.plot(periodos, valores, label="Valor Total com Juros Simples", color='blue')
         plt.xlabel('Período (meses)')
         plt.ylabel('Valor Acumulado (R$)')
-        plt.title('Gráfico de Juros Simples')
+        plt.title('Gráfico de Juros Compostos')
         plt.grid(True)
         plt.legend()
-
         plt.savefig(graph_path)
         plt.close()
 
@@ -54,3 +51,6 @@ class SimpleInterest:
          plt.axis('equal')
          plt.savefig(graph_path)
          plt.close()
+         
+
+

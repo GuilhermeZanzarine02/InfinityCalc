@@ -4,7 +4,10 @@ from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
 from templates.Homepage.news import get_news
+
+# Import para calculos de juros simples e compostos
 from simpleInterest.simpleInterest import SimpleInterest
+from compoundInterest.compoundInterest import CompoundInterest
 
 app = Flask(__name__)
 
@@ -57,16 +60,20 @@ def simple_interest_page():
             pi = float(request.form['pi'])
             tj = float(request.form['tj'])
             t  = float(request.form['t'])
+            unidade_tempo = request.form['unidade_tempo'].lower().strip()
 
-            simple_interest = SimpleInterest(pi, tj, t)
+            simple_interest = SimpleInterest(pi, tj, t, unidade_tempo)
             resultado = round(simple_interest.calculo(), 2)
 
-            GRAPH_PATH = 'ImagemGrafico.png'
+            line_graph_path = 'ImagemGrafico.png'
+            simple_interest.gerarGrafico(graph_path=os.path.join('static', line_graph_path))
 
-            simple_interest.gerarGrafico(graph_path=os.path.join('static', GRAPH_PATH))
+            pie_graph_path =  'ImagemPizza.png'
+            simple_interest.gerarGraficoPizza(graph_path=os.path.join('static', pie_graph_path))
 
             return render_template('simpleInterestPage/simpleInterest.html', resultado=resultado,
-                                                                             graph_pah = GRAPH_PATH)
+                                                                             line_pah = line_graph_path,
+                                                                             pie_path = pie_graph_path)
 
         except ValueError:
             flash("Erro: Por favor, insira apenas números válidos.", "error")
@@ -83,16 +90,20 @@ def compound_Interest_page():
             pi = float(request.form['pi'])
             tj = float(request.form['tj'])
             t  = float(request.form['t'])
+            unidade_tempo = request.form['unidade_tempo']
 
-            compound_interest = SimpleInterest(pi, tj, t)
-            resultado = round(compound_interest.calculo(), 2)
+            compound_interest = CompoundInterest(pi, tj, t, unidade_tempo)
+            resultado = f"R$ {compound_interest.calculo():,.2f}"
 
-            GRAPH_PATH = 'ImagemGrafico.png'
+            line_graph_path = 'ImagemGrafico2.png'
+            compound_interest.gerarGrafico(graph_path=os.path.join('static', line_graph_path))
 
-            compound_interest.gerarGrafico(graph_path=os.path.join('static', GRAPH_PATH))
+            pie_graph_path =  'ImagemPizza2.png'
+            compound_interest.gerarGraficoPizza(graph_path=os.path.join('static', pie_graph_path))
 
             return render_template('compoundInterestPage/compoundInterest.html', resultado=resultado,
-                                                                             graph_pah = GRAPH_PATH)
+                                                                                 line_pah = line_graph_path,
+                                                                                 pie_path = pie_graph_path)
 
         except ValueError:
             flash("Erro: Por favor, insira apenas números válidos.", "error")
