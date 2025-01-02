@@ -51,6 +51,7 @@ def index():
 @app.route('/simpleInterestPage', methods=['GET', 'POST'])
 
 def simple_interest_page():
+    
     if request.method == "POST":
         try:
             pi = float(request.form['pi'])
@@ -72,6 +73,32 @@ def simple_interest_page():
             return render_template('simpleInterestPage/simpleInterest.html')
         
     return render_template('simpleInterestPage/simpleInterest.html') 
+
+# Rota para a página de juros compostos
+@app.route('/compoundInterestPage', methods=['GET', 'POST'])
+
+def compound_Interest_page():
+    if request.method == "POST":
+        try:
+            pi = float(request.form['pi'])
+            tj = float(request.form['tj'])
+            t  = float(request.form['t'])
+
+            compound_interest = SimpleInterest(pi, tj, t)
+            resultado = round(compound_interest.calculo(), 2)
+
+            GRAPH_PATH = 'ImagemGrafico.png'
+
+            compound_interest.gerarGrafico(graph_path=os.path.join('static', GRAPH_PATH))
+
+            return render_template('compoundInterestPage/compoundInterest.html', resultado=resultado,
+                                                                             graph_pah = GRAPH_PATH)
+
+        except ValueError:
+            flash("Erro: Por favor, insira apenas números válidos.", "error")
+            return render_template('compoundInterestPage/compoundInterest.html')
+        
+    return render_template('compoundInterestPage/compoundInterest.html') 
 
 #Rota para a página Black Scholes
 @app.route('/BlackScholesPage', methods=['GET', 'POST'])
