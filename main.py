@@ -63,7 +63,7 @@ def simple_interest_page():
             unidade_tempo = request.form['unidade_tempo'].lower().strip()
 
             simple_interest = SimpleInterest(pi, tj, t, unidade_tempo)
-            resultado = round(simple_interest.calculo(), 2)
+            resultado = f"R$ {simple_interest.calculo():,.2f}"
 
             line_graph_path = 'ImagemGrafico.png'
             simple_interest.gerarGrafico(graph_path=os.path.join('static', line_graph_path))
