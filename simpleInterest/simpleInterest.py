@@ -1,20 +1,29 @@
 import matplotlib.pyplot as plt
 
 class SimpleInterest:
-    def __init__(self, pi, tj, t, unidade_tempo):
+    def __init__(self, pi, tj, t, unidade_tempo, periodo_taxa):
         self.pi = pi
         self.tj = tj / 100
         self.t = t
         self.unidade_tempo = unidade_tempo
+        self.periodo_taxa = periodo_taxa
 
 
     def calculo(self):
-        if self.unidade_tempo == 'meses':
-            return self.pi * (1 + self.tj * self.t)
         
-        elif self.unidade_tempo == "anos":
-            t_meses = self.t * 12
-            return self.pi * (1 + self.tj * t_meses)
+        if self.unidade_tempo == 'meses' and self.periodo_taxa == 'mensal':
+            return self.pi * (1 + self.tj * self.t)
+
+        elif self.unidade_tempo == "anos" and self.periodo_taxa == 'anual':
+            return self.pi * (1 + self.tj * self.t)
+
+        elif self.unidade_tempo == "meses" and self.periodo_taxa == 'anual':
+            taxa_mensal = self.tj / 12
+            return self.pi * (1 + taxa_mensal * self.t)
+        
+        elif self.unidade_tempo == "anos" and self.periodo_taxa == 'mensal':
+            tempo_meses = self.t * 12
+            return self.pi * (1 + self.tj * tempo_meses)
         
         else:
             print("Erro! unidade de tempo invalida.")
@@ -36,6 +45,7 @@ class SimpleInterest:
 
         plt.savefig(graph_path)
         plt.close()
+
 
     def gerarGraficoPizza(self, graph_path="static/ImagemPizza2.png"):
         

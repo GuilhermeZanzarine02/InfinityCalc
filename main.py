@@ -61,9 +61,12 @@ def simple_interest_page():
             tj = float(request.form['tj'])
             t  = float(request.form['t'])
             unidade_tempo = request.form['unidade_tempo'].lower().strip()
+            periodo_taxa = request.form['txp'].lower().strip()
 
-            simple_interest = SimpleInterest(pi, tj, t, unidade_tempo)
-            resultado = f"R$ {simple_interest.calculo():,.2f}"
+            simple_interest = SimpleInterest(pi, tj, t, unidade_tempo, periodo_taxa)
+
+            resultado = simple_interest.calculo()
+            resultado_formatado = f"R$ {resultado:,.2f}"
 
             line_graph_path = 'ImagemGrafico.png'
             simple_interest.gerarGrafico(graph_path=os.path.join('static', line_graph_path))
@@ -71,13 +74,15 @@ def simple_interest_page():
             pie_graph_path =  'ImagemPizza.png'
             simple_interest.gerarGraficoPizza(graph_path=os.path.join('static', pie_graph_path))
 
-            return render_template('simpleInterestPage/simpleInterest.html', resultado=resultado,
+            
+            return render_template('simpleInterestPage/simpleInterest.html', resultado=resultado_formatado,
                                                                              line_pah = line_graph_path,
                                                                              pie_path = pie_graph_path)
 
         except ValueError:
             flash("Erro: Por favor, insira apenas números válidos.", "error")
             return render_template('simpleInterestPage/simpleInterest.html')
+        
         
     return render_template('simpleInterestPage/simpleInterest.html') 
 
@@ -91,9 +96,12 @@ def compound_Interest_page():
             tj = float(request.form['tj'])
             t  = float(request.form['t'])
             unidade_tempo = request.form['unidade_tempo']
+            periodo_taxa = request.form['txp'].lower().strip()
 
-            compound_interest = CompoundInterest(pi, tj, t, unidade_tempo)
-            resultado = f"R$ {compound_interest.calculo():,.2f}"
+            compound_interest = CompoundInterest(pi, tj, t, unidade_tempo, periodo_taxa)
+
+            resultado = compound_interest.calculo()
+            resultado_formatado = f"R$ {resultado:,.2f}"
 
             line_graph_path = 'ImagemGrafico2.png'
             compound_interest.gerarGrafico(graph_path=os.path.join('static', line_graph_path))
@@ -101,7 +109,7 @@ def compound_Interest_page():
             pie_graph_path =  'ImagemPizza2.png'
             compound_interest.gerarGraficoPizza(graph_path=os.path.join('static', pie_graph_path))
 
-            return render_template('compoundInterestPage/compoundInterest.html', resultado=resultado,
+            return render_template('compoundInterestPage/compoundInterest.html', resultado=resultado_formatado,
                                                                                  line_pah = line_graph_path,
                                                                                  pie_path = pie_graph_path)
 
@@ -139,7 +147,6 @@ def black_scholes_page():
             return render_template('BlackScholesPage/blackscholes.htm')
         
     return render_template('BlackScholesPage/blackscholes.htm')
-
 
 # Rota para exibir os dados de câmbio
 @app.route('/exchangeRate', methods=['GET'])
