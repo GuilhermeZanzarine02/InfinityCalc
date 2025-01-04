@@ -154,5 +154,12 @@ def black_scholes_page():
 def exchange_rate(moeda):
     pass
 
+# Rota para a página de CriptoMoedas
+
+@app.route('/Criptomoedas', methods=['GET', 'POST'])
+
+def criptomoedas():
+    return render_template('Criptomoedas/criptomoedas.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
