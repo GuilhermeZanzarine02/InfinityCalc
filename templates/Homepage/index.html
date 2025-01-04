@@ -89,6 +89,17 @@
                 <p>Não foi possível carregar os dados de câmbio.</p>
             {% endif %}
 
+            <h3>Taxa de câmbio (JPY/BRL)</h3>
+            {% if exchange_rate_eur_brl %}
+                <p><strong>Moeda:</strong> {{ exchange_rate_jpy_brl.name }}</p>
+                <p><strong>Taxa Atual: R$</strong> {{ exchange_rate_jpy_brl.bid }}</p>
+                <p><strong>Alta do Dia: R$</strong> {{ exchange_rate_jpy_brl.high }}</p>
+                <p><strong>Baixa do Dia: R$</strong> {{ exchange_rate_jpy_brl.low }}</p>
+                <p><strong>Última Atualização:</strong> {{ exchange_rate_jpy_brl.create_date }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
         </div>
         <div class="bottom-right">
             <h3>Notícias</h3>

@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
+from Criptomoedas.cripto import get_crypto_currency
 from templates.Homepage.news import get_news
 
 # Import para calculos de juros simples e compostos
@@ -31,6 +32,9 @@ def index():
     exchange_data_aud_brl = get_exchange_rate("AUD-BRL")
     exchange_rate_aud_brl = exchange_data_aud_brl.get("AUDBRL") if exchange_data_aud_brl else None
 
+    exchange_data_jpy_brl = get_exchange_rate("JPY-BRL")
+    exchange_rate_jpy_brl = exchange_data_jpy_brl.get("JPYBRL") if exchange_data_jpy_brl else None
+
     # Busca dados de notícias
     data = get_news()
     random_article = None
@@ -47,6 +51,7 @@ def index():
         exchange_rate_gbp_brl=exchange_rate_gbp_brl,
         exchange_rate_cny_brl=exchange_rate_cny_brl,
         exchange_rate_aud_brl=exchange_rate_aud_brl,
+        exchange_rate_jpy_brl=exchange_rate_jpy_brl,
         random_article=random_article
     )
 
@@ -159,7 +164,14 @@ def exchange_rate(moeda):
 @app.route('/Criptomoedas', methods=['GET', 'POST'])
 
 def criptomoedas():
-    return render_template('Criptomoedas/criptomoedas.html')
+
+    btc_data = get_crypto_currency("BTC")
+    print(btc_data)
+
+    if request.method == 'POST':
+        pass
+
+    return render_template('Criptomoedas/criptomoedas.html', btc_data=btc_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

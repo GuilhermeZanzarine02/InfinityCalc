@@ -47,7 +47,20 @@
         </div>
       </div>
       <div class="right">
-
+        <div class="top-right">
+            <h3>Preços do Bitcoin:</h3>
+            {% if btc_data %}
+                <p><strong>USD: </strong> {{ btc_data['USD'] }}</p>
+                <p><strong>JPY: </strong> {{ btc_data['JPY'] }}</p>
+                <p><strong>EUR: </strong> {{ btc_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ btc_data['BRL'] }}</p>
+                <p><strong>GBP: </strong> {{ btc_data['GBP'] }}</p>
+                <p><strong>CNY: </strong> {{ btc_data['CNY'] }}</p>
+                <p><strong>AUD: </strong> {{ btc_data['AUD'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+        </div>
       </div>
     </div>
 </body>
