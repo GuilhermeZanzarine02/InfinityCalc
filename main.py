@@ -166,12 +166,21 @@ def exchange_rate(moeda):
 def criptomoedas():
 
     btc_data = get_crypto_currency("BTC")
-    print(btc_data)
+    eth_data = get_crypto_currency("ETH")
+    xrp_data = get_crypto_currency("XRP")
+    tether_data = get_crypto_currency("USDT")
+    solana_data = get_crypto_currency("SOL")
+    cardano_data = get_crypto_currency("ADA")
 
     if request.method == 'POST':
         pass
 
-    return render_template('Criptomoedas/criptomoedas.html', btc_data=btc_data)
+    return render_template('Criptomoedas/criptomoedas.html', btc_data=btc_data,
+                                                             eth_data=eth_data,
+                                                             xrp_data=xrp_data,
+                                                             tether_data=tether_data,
+                                                             solana_data=solana_data,
+                                                             cardano_data=cardano_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
