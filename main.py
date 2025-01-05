@@ -3,7 +3,7 @@ import os
 from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
-from Criptomoedas.cripto import get_crypto_currency
+from Criptomoedas.cripto import get_crypto_currency, calculo
 from templates.Homepage.news import get_news
 
 # Import para calculos de juros simples e compostos
@@ -164,7 +164,7 @@ def exchange_rate(moeda):
 @app.route('/Criptomoedas', methods=['GET', 'POST'])
 
 def criptomoedas():
-
+    
     btc_data = get_crypto_currency("BTC")
     eth_data = get_crypto_currency("ETH")
     xrp_data = get_crypto_currency("XRP")
@@ -173,14 +173,28 @@ def criptomoedas():
     cardano_data = get_crypto_currency("ADA")
 
     if request.method == 'POST':
-        pass
+        try:
+            valor = float(request.form["valor"])
+            c_crypto = request.form["c_crypto"].upper()
+            moeda = request.form["moeda"].upper()
+            option = request.form["opcao"].lower().strip()
 
-    return render_template('Criptomoedas/criptomoedas.html', btc_data=btc_data,
+            resultado = calculo(valor, c_crypto, moeda, option)
+            resultado_formatado = f"R$ {resultado:.5f}"
+
+            return render_template('Criptomoedas/criptomoedas.html', btc_data=btc_data,
                                                              eth_data=eth_data,
                                                              xrp_data=xrp_data,
                                                              tether_data=tether_data,
                                                              solana_data=solana_data,
-                                                             cardano_data=cardano_data)
+                                                             cardano_data=cardano_data,
+                                                             resultado_formatado=resultado_formatado)
+
+        except ValueError as e:
+            flash(f"Erro! Erro ao validar informações do formulário. {e}")
+            return render_template('Criptomoedas/criptomoedas.html')
+        
+    return render_template('Criptomoedas/criptomoedas.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

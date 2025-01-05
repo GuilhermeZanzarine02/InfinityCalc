@@ -12,22 +12,33 @@
         <h1>Criptomoedas</h1>
         <form method="POST">
             <div class="form-group">
-                <label for="pi">Preço Inicial:</label>
-                <input type="number" name="pi" step="any" required>
+                <label for="valor">Valor:</label>
+                <input type="number" name="valor" step="any" required>
             </div>
             <div class="form-group">
-                <label for="tj">Taxa de Juros:</label>
-                <input type="number" name="tj" step="any" required>
+                <label for="c_crypto">Criptomoeda:</label>
+                <select name="c_crypto" required>
+                    <option value="btc">BTC</option>
+                    <option value="eth">ETH</option>
+                    <option value="xrp">XRP</option>
+                    <option value="usdt">USDT</option>
+                    <option value="sol">SOL</option>
+                    <option value="ada">ADA</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="t">Período:</label>
-                <input type="number" name="t" step="any" required>
+                <label for="moeda">Moeda:</label>
+                <select name="moeda" required>
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                    <option value="brl">BRL</option>
+                </select>
             </div>
             <div class="form-group">
-                <label for="unidade_tempo">Unidade de tempo:</label>
-                <select name="unidade_tempo" required>
-                    <option value="anos">Anos</option>
-                    <option value="meses">Meses</option>
+                <label for="opcao">Oq fazer:</label>
+                <select name="opcao" required>
+                    <option value="converter">Converter</option>
+                    <option value="comprar">Comprar</option>
                 </select>
             </div>
             <button type="submit">Calcular</button>
@@ -36,8 +47,8 @@
         {% if resultado is not none %}
         <div class="resultados">
             <div class="resultado-item">
-                <h2>Preço:</h2>
-                <p>R$</p>
+                <h2>Resultado:</h2>
+                <p>{{resultado_formatado}}</p>
             </div>
         </div>
        {% endif %}
