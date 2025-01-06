@@ -19,6 +19,7 @@ def get_crypto_currency(crypto):
         print(f"Erro ao acessar a API: {e}")
         return None
 
+
 def adicionar_crypto_ao_dicionario():
     lista = ["BTC", "ETH", "XRP", "USDT", "SOL", "ADA"]
     
@@ -31,6 +32,7 @@ def adicionar_crypto_ao_dicionario():
              print(f"Não foi possível obter dados para {item}")
              
     return dict_crypto
+
 
 def calculo(valor, c_crypto, moeda, option):
     data = adicionar_crypto_ao_dicionario()

@@ -10,6 +10,11 @@ from templates.Homepage.news import get_news
 from simpleInterest.simpleInterest import SimpleInterest
 from compoundInterest.compoundInterest import CompoundInterest
 
+# Import para formatação usando o formato Brasileiro
+# Configurar o local para o formato brasileiro
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+
 app = Flask(__name__)
 
 # Rota para a página inicial
@@ -180,7 +185,7 @@ def criptomoedas():
             option = request.form["opcao"].lower().strip()
 
             resultado = calculo(valor, c_crypto, moeda, option)
-            resultado_formatado = f"R$ {resultado:.5f}"
+            resultado_formatado = locale.format_string("%.2f", resultado,  grouping=True)
 
             return render_template('Criptomoedas/criptomoedas.html', btc_data=btc_data,
                                                              eth_data=eth_data,

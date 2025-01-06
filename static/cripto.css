@@ -43,9 +43,9 @@ h1 {
     font-family: 'Oswald', sans-serif;
     color: #B8C7CE;
     text-align: center;
-    margin-left: 52.5px;
-    margin-bottom: -5px;
-    margin-top: -15px;
+    margin-left: 80px;
+    margin-bottom: 5px;
+    margin-top: 30px;
 }
 
 .form-group {
@@ -126,7 +126,8 @@ button {
     text-align: center;
     transition: background-color 0.3s ease, transform 0.2s ease;
     margin-top: 26px;
-    margin-left: 120px;
+    width: 155px;
+    margin-left: 160px;
     margin-right: auto;
     display: block;
 }
@@ -146,8 +147,8 @@ button:hover {
     width: 40vh;
     align-items: center;
     position: absolute;
-    top: 85%;  
-    left: 52.5%;
+    top: 76%;  
+    left: 55.5%;
     transform: translate(-50%, -50%);
     margin-top: 20px;
 }
@@ -160,7 +161,7 @@ button:hover {
     margin-top: 5px;
 }
 
-.resultado-item h2, .resultado-item p {
+.resultado-item h3, .resultado-item p {
     font-family: 'Kanit', sans-serif;
     color: #B8C7CE;
     margin: 0;
@@ -296,6 +297,3 @@ button:hover {
     color: #FFFFFF;
     border-bottom-color: rgba(255, 255, 255, 0.7);
 }
-
-
-
