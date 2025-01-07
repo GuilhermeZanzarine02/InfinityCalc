@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/cripto.css">
+    <title>Câmbio</title>
+</head>
+<body>
+    <div class="container">
+      <div class="left">
+        <h1>Câmbio</h1>
+        <form method="POST">
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" name="valor" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="valor">Valor:</label>
+                <input type="number" name="valor" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="moeda">Moeda:</label>
+                <select name="moeda" required>
+                    <option value="usd">USD</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="opcao">Ordem:</label>
+                <select name="opcao" required>
+                    <option value="converter">Converter</option>
+                    <option value="comprar">Comprar</option>
+                </select>
+            </div>
+            <button type="submit">Calcular</button>
+        </form>
+
+        {% if resultado is not none %}
+        <div class="resultados">
+            <div class="resultado-item">
+                <h3>Resultado:</h3>
+                <p>{{resultado_formatado}}</p>
+            </div>
+        </div>
+       {% endif %}
+        <!-- Botão para voltar à página inicial -->
+        <div class="back-btn">
+            <a href="/" class="btn">Voltar</a>
+        </div>
+      </div>
+      <div class="right">
+        <h2>Preços das Principais Criptomoedas</h2>
+        <div class="top-right">
+            <h3>Preços Bitcoin:</h3>
+            {% if btc_data %}
+                <p><strong>USD: </strong> {{ btc_data['USD'] }}</p>
+                <p><strong>EUR: </strong> {{ btc_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ btc_data['BRL'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Preços Ethereum:</h3>
+            {% if eth_data %}
+                <p><strong>USD: </strong> {{ eth_data['USD'] }}</p>
+                <p><strong>EUR: </strong> {{ eth_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ eth_data['BRL'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Preços XPR: </h3>
+            {% if xrp_data %}
+                <p><strong>USD: </strong> {{ xrp_data['USD'] }}</p>
+                <p><strong>EUR: </strong> {{ xrp_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ xrp_data['BRL'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Preços Tether: </h3>
+            {% if tether_data %}
+                <p><strong>USD: </strong> {{ tether_data['USD'] }}</p>
+                <p><strong>EUR: </strong> {{ tether_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ tether_data['BRL'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Preços Solana: </h3>
+            {% if tether_data %}
+                <p><strong>USD: </strong> {{ solana_data['USD'] }}</p>
+                <p><strong>EUR: </strong> {{ solana_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ solana_data['BRL'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+
+            <h3>Preços Cardano: </h3>
+            {% if cardano_data %}
+                <p><strong>USD: </strong> {{ cardano_data['USD'] }}</p>
+                <p><strong>EUR: </strong> {{ cardano_data['EUR'] }}</p>
+                <p><strong>BRL: </strong> {{ cardano_data['BRL'] }}</p>
+            {% else %}
+                <p>Não foi possível carregar os dados de câmbio.</p>
+            {% endif %}
+            
+            
+        </div>
+      </div>
+    </div>
+</body>
+</html>

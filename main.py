@@ -159,13 +159,20 @@ def black_scholes_page():
     return render_template('BlackScholesPage/blackscholes.htm')
 
 # Rota para exibir os dados de câmbio
-@app.route('/exchangeRate', methods=['GET'])
+@app.route('/Cambiot', methods=['GET', 'POST'])
 
-def exchange_rate(moeda):
-    pass
+def cambio():
+    if request.method == 'POST':
+        try:
+            return render_template('Cambiot/cambio.html')
+
+        except ValueError as e:
+            flash(f"Erro! Erro ao validar informações do formulário. {e}")
+            return render_template('Cambiot/cambio.html')
+        
+    return render_template('Cambiot/cambio.html')
 
 # Rota para a página de CriptoMoedas
-
 @app.route('/Criptomoedas', methods=['GET', 'POST'])
 
 def criptomoedas():
@@ -200,6 +207,35 @@ def criptomoedas():
             return render_template('Criptomoedas/criptomoedas.html')
         
     return render_template('Criptomoedas/criptomoedas.html')
+
+# Rota para a página de Debêmtures
+@app.route('/DebenturePage', methods=['GET', 'POST'])
+
+def debentures():
+    if request.method == 'POST':
+       try:
+           return render_template("DebenturePage/debenture.html")
+       
+       except ValueError as e:
+           flash(f"Erro! Erro ao validar informações do formulário. {e}")
+           return render_template("DebenturePage/debenture.html")
+       
+    return render_template("DebenturePage/debenture.html")
+
+# Rota para a página de CDB
+@app.route('/CdbPage', methods=['GET', 'POST'])
+
+def cbd():
+    if request.method == 'POST':
+        try:
+            return render_template('CdbPage/cdb.html')
+        
+        except ValueError as e:
+            flash(f"Erro! Erro ao validar informações do formulário. {e}")
+            return render_template('CdbPage/cdb.html')
+        
+    return render_template('CdbPage/cdb.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
