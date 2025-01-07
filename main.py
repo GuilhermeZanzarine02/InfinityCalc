@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
 from Criptomoedas.cripto import get_crypto_currency, calculo
+from Cambio.cambio import get_currency_value
 from templates.Homepage.news import get_news
 
 # Import para calculos de juros simples e compostos
@@ -39,6 +40,7 @@ def index():
 
     exchange_data_jpy_brl = get_exchange_rate("JPY-BRL")
     exchange_rate_jpy_brl = exchange_data_jpy_brl.get("JPYBRL") if exchange_data_jpy_brl else None
+
 
     # Busca dados de notícias
     data = get_news()
@@ -162,15 +164,43 @@ def black_scholes_page():
 @app.route('/Cambiot', methods=['GET', 'POST'])
 
 def cambio():
+    currencies = ["USD-BRL", "EUR-BRL", "GBP-BRL", "CNY-BRL", "AUD-BRL", "JPY-BRL"]
+    exchange_rates = {}
+
+    for currency_pair in currencies:
+        exchange_data = get_exchange_rate(currency_pair)
+        currency_key = currency_pair.replace("-", "")
+        exchange_rates[currency_key] = exchange_data.get(currency_key) if exchange_data else None
+        formatted_response = ""
+
+    exchange_rate_usd_brl = exchange_rates.get("USDBRL")
+    exchange_rate_eur_brl = exchange_rates.get("EURBRL")
+    exchange_rate_gbp_brl = exchange_rates.get("GBPBRL")
+    exchange_rate_cny_brl = exchange_rates.get("CNYBRL")
+    exchange_rate_aud_brl = exchange_rates.get("AUDBRL")
+    exchange_rate_jpy_brl = exchange_rates.get("JPYBRL") 
+
     if request.method == 'POST':
         try:
-            return render_template('Cambiot/cambio.html')
+            valor = float(request.form['valor'])
+            moedaOrigem = request.form['moedaOrigem'].upper()
+            moedaDestino = request.form['moedaDestino'].upper()
+        
+            response = get_currency_value(valor, moedaOrigem, moedaDestino)
+
+            formatted_response = locale.format_string("%.4f", response,  grouping=True)
 
         except ValueError as e:
             flash(f"Erro! Erro ao validar informações do formulário. {e}")
             return render_template('Cambiot/cambio.html')
         
-    return render_template('Cambiot/cambio.html')
+    return render_template('Cambiot/cambio.html', exchange_rate_usd_brl=exchange_rate_usd_brl,
+                                                  exchange_rate_eur_brl=exchange_rate_eur_brl,
+                                                  exchange_rate_gbp_brl=exchange_rate_gbp_brl,
+                                                  exchange_rate_cny_brl=exchange_rate_cny_brl,
+                                                  exchange_rate_aud_brl=exchange_rate_aud_brl,
+                                                  exchange_rate_jpy_brl=exchange_rate_jpy_brl,
+                                                  formatted_response=formatted_response)
 
 # Rota para a página de CriptoMoedas
 @app.route('/Criptomoedas', methods=['GET', 'POST'])
