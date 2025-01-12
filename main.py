@@ -1,5 +1,6 @@
 import random
 import os
+import pandas as pd
 from flask import Flask, render_template, request, flash
 from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculos_intermediarios
 from templates.exchangeRate.exchangerate import get_exchange_rate
@@ -244,6 +245,13 @@ def criptomoedas():
 def renda_fixa():
     if request.method == 'POST':
        try:
+           valor = float(request.form["vi"])
+           taxa_pre = float(request.form["tj"])
+           emissao = pd.to_datetime(request.form["emissao"])
+           vencimento = pd.to_datetime(request.form["vencimento"])
+           amortizacoes = request.form["amortizacoes"]
+
+           print(f"Valor: {valor} - Taxa: {taxa_pre} - Emissão: {emissao} - Vencimento: {vencimento} - Amortizações: {amortizacoes}")
            return render_template("RendaFixaPage/rendaFixa.html")
        
        except ValueError as e:

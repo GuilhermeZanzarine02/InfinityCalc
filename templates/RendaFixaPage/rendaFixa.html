@@ -9,33 +9,36 @@
 <body>
     <div class="container">
       <div class="left">
-        <h1>Calculadora<br>Debêntures</h1>
+        <h1>Renda Fixa</h1>
         <form method="POST">
             <div class="form-group">
-                <label for="pi">Preço Inicial:</label>
-                <input type="number" name="pi" step="any" required>
+                <label for="vi">Valor investido:</label>
+                <input type="number" name="vi" step="any" required>
             </div>
             <div class="form-group">
                 <label for="tj">Taxa de Juros:</label>
                 <input type="number" name="tj" step="any" required>
             </div>
             <div class="form-group">
-                <label for="t">Período:</label>
-                <input type="number" name="t" step="any" required>
+                <label for="emissao">Data de emissão:</label>
+                <input type="datetime" name="emissao" step="any" required>
             </div>
             <div class="form-group">
-                <label for="txp">Taxa(a.m/a.a):</label>
-                <select name="txp" required>
-                    <option value="anual">Anual</option>
+                <label for="vencimento">Data de Vencimento:</label>
+                <input type="datetime" name="vencimento" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="intervalo">Intervalo entre Parcelas:</label>
+                <select name="intervalo" id="intervalo" required>
                     <option value="mensal">Mensal</option>
+                    <option value="trimestral">Trimestral</option>
+                    <option value="semestral">Semestral</option>
+                    <option value="anual">Anual</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="unidade_tempo">Unidade de tempo:</label>
-                <select name="unidade_tempo" required>
-                    <option value="anos">Anos</option>
-                    <option value="meses">Meses</option>
-                </select>
+                <label for="amortizacoes">Amortizações (Data, Porcentagem):</label>
+                <textarea name="amortizacoes" placeholder="Exemplo: 01/01/2025, 5%; 01/01/2026, 10%" required></textarea>
             </div>
             <button type="submit">Calcular</button>
         </form>
