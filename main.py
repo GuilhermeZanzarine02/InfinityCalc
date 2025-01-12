@@ -188,7 +188,7 @@ def cambio():
         
             response = get_currency_value(valor, moedaOrigem, moedaDestino)
 
-            formatted_response = locale.format_string("%.4f", response,  grouping=True)
+            formatted_response = locale.format_string("%.2f", response,  grouping=True)
 
         except ValueError as e:
             flash(f"Erro! Erro ao validar informações do formulário. {e}")
@@ -239,18 +239,18 @@ def criptomoedas():
     return render_template('Criptomoedas/criptomoedas.html')
 
 # Rota para a página de Debêmtures
-@app.route('/DebenturePage', methods=['GET', 'POST'])
+@app.route('/RendaFixaPage', methods=['GET', 'POST'])
 
-def debentures():
+def renda_fixa():
     if request.method == 'POST':
        try:
-           return render_template("DebenturePage/debenture.html")
+           return render_template("RendaFixaPage/rendaFixa.html")
        
        except ValueError as e:
            flash(f"Erro! Erro ao validar informações do formulário. {e}")
-           return render_template("DebenturePage/debenture.html")
+           return render_template("RendaFixaPage/rendaFixa.html")
        
-    return render_template("DebenturePage/debenture.html")
+    return render_template("RendaFixaPage/rendaFixa.html")
 
 # Rota para a página de CDB
 @app.route('/CdbPage', methods=['GET', 'POST'])
@@ -269,3 +269,4 @@ def cbd():
 
 if __name__ == '__main__':
     app.run(debug=True)
+ 
