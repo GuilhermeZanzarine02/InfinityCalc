@@ -6,6 +6,7 @@ from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculo
 from templates.exchangeRate.exchangerate import get_exchange_rate
 from Criptomoedas.cripto import get_crypto_currency, calculo
 from Cambio.cambio import get_currency_value
+from RendaFixa.business_days_counter import contar_datas_pareclas, contar_dias_uteis_entre_datas
 from templates.Homepage.news import get_news
 
 # Import para calculos de juros simples e compostos
@@ -249,9 +250,20 @@ def renda_fixa():
            taxa_pre = float(request.form["tj"])
            emissao = pd.to_datetime(request.form["emissao"])
            vencimento = pd.to_datetime(request.form["vencimento"])
+           intervalo_parcela = request.form["intervalo"].lower().strip()
            amortizacoes = request.form["amortizacoes"]
+ 
+           if intervalo_parcela:
+                if intervalo_parcela == "mensal": intervalo_parcela = 1
+                if intervalo_parcela == "bimestral": intervalo_parcela = 2
+                if intervalo_parcela == "trimestral": intervalo_parcela = 3
+                if intervalo_parcela == "semestral": intervalo_parcela = 6
+                if intervalo_parcela == "anual": intervalo_parcela = 12
+           else:
+               flash(f"Intervalo {intervalo_parcela} não encontrado.")
 
-           print(f"Valor: {valor} - Taxa: {taxa_pre} - Emissão: {emissao} - Vencimento: {vencimento} - Amortizações: {amortizacoes}")
+           print(f"Valor: {valor} - Taxa: {taxa_pre} - Emissão: {emissao} - Vencimento: {vencimento} - Amortizações: {amortizacoes} - Intervalo Parcela: {intervalo_parcela}")
+           
            return render_template("RendaFixaPage/rendaFixa.html")
        
        except ValueError as e:
@@ -273,7 +285,6 @@ def cbd():
             return render_template('CdbPage/cdb.html')
         
     return render_template('CdbPage/cdb.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
