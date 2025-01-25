@@ -6,7 +6,7 @@ from blackscholes.calculo import calculo_blaack_sholes, calculo_nd1_nd2, calculo
 from templates.exchangeRate.exchangerate import get_exchange_rate
 from Criptomoedas.cripto import get_crypto_currency, calculo
 from Cambio.cambio import get_currency_value
-from RendaFixa.business_days_counter import contar_datas_pareclas, contar_dias_uteis_entre_datas
+from RendaFixa.calculo_fluxo_caixa import calculate_cash_flow
 from templates.Homepage.news import get_news
 
 # Import para calculos de juros simples e compostos
@@ -19,6 +19,7 @@ import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 app = Flask(__name__)
+app.secret_key = "uma_chave_unica_e_secreta"  # Defina algo único e seguro
 
 # Rota para a página inicial
 @app.route('/', methods=['GET', 'POST'])
@@ -252,6 +253,10 @@ def renda_fixa():
            vencimento = pd.to_datetime(request.form["vencimento"])
            intervalo_parcela = request.form["intervalo"].lower().strip()
            amortizacoes = request.form["amortizacoes"]
+
+           lista_formatada = amortizacoes.split(";")
+           lista_formatada = [amort.strip().split(",") for amort in lista_formatada]
+           lista_formatada = [[data.strip(), float(valor.strip())] for data, valor in lista_formatada]
  
            if intervalo_parcela:
                 if intervalo_parcela == "mensal": intervalo_parcela = 1
@@ -262,7 +267,14 @@ def renda_fixa():
            else:
                flash(f"Intervalo {intervalo_parcela} não encontrado.")
 
-           print(f"Valor: {valor} - Taxa: {taxa_pre} - Emissão: {emissao} - Vencimento: {vencimento} - Amortizações: {amortizacoes} - Intervalo Parcela: {intervalo_parcela}")
+           print(f"Valor: {valor} - Taxa: {taxa_pre} - Emissão: {emissao} - Vencimento: {vencimento} - Amortizações: {lista_formatada} - Intervalo Parcela: {intervalo_parcela}")
+           print(type(amortizacoes))
+
+           if not (valor and taxa_pre and emissao and vencimento and intervalo_parcela):
+                flash("Erro! Alguns valores obrigatórios não foram fornecidos corretamente.")
+                return render_template("RendaFixaPage/rendaFixa.html")
+
+           calculate_cash_flow(valor, taxa_pre, emissao, vencimento, intervalo_parcela, lista_formatada)
            
            return render_template("RendaFixaPage/rendaFixa.html")
        
